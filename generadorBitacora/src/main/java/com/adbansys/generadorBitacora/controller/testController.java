@@ -35,8 +35,8 @@ public class testController {
 	List<recordsUsers> listaUsuarios = new ArrayList<recordsUsers>();
 	
 	@GetMapping("/hola")
-    public String hola() {
-        return this.usuarioServicio.proeba();
+    public List<recordsUsers> hola() {
+        return this.usuarioServicio.inicio();
     }
 	
 	@GetMapping("/")
@@ -95,3 +95,6 @@ public class testController {
 
 // creación de CRUD
 // https://www.youtube.com/watch?v=6tWtNYsqXL4
+
+// github
+// https://www.youtube.com/watch?v=wYzkZn0qYv8

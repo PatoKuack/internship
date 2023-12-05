@@ -16,12 +16,19 @@ public class recordsUsers {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@Column
 	private String nombre;
 	
 	@Column(unique = true, nullable = false)
 	private String email;
 	
+	@Column
 	private int edad;
+	
+	
+	public recordsUsers() {
+    }
+	
 	
 	public Long getId() {
 		return id;

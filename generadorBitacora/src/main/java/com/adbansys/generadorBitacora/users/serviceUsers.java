@@ -1,6 +1,5 @@
 package com.adbansys.generadorBitacora.users;
 
-// import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -17,23 +16,6 @@ public class serviceUsers {
 	
 	@Autowired
 	repositoryUsers usuarioRepo;
-	
-	public String proeba(){
-//		return (ArrayList<recordsUsers>) usuarioRepo.findAll()
-
-//		if(usuarioRepo.existsById(Long.valueOf(1))) {
-//			recordsUsers firstU = (recordsUsers) usuarioRepo.getById(Long.valueOf(1));
-//			return firstU.getEmail();
-//		} else {
-//			return "null";
-//		}
-		Optional<recordsUsers> getValue = usuarioRepo.findById(Long.valueOf(1));
-		if(getValue.isPresent()) {
-			return getValue.get().getEmail();
-		} else {
-			return "null";
-		}
-	}
 	
 	public List<recordsUsers> inicio(){
 		return this.usuarioRepo.findAll();
@@ -60,7 +42,7 @@ public class serviceUsers {
 			);
 		}
 		usuarioRepo.deleteById(idDel);
-		data.put("message", "Usuario eliminado");
+		data.put("message", "El usuario con el id " + idDel + " fue eliminado");
 		return new ResponseEntity<>(
 				data,
 				HttpStatus.ACCEPTED
@@ -69,7 +51,8 @@ public class serviceUsers {
 	}
 	
 //	public recordsUsers updateUser(Long idP, String nameP) {
-//		usuarioRepo.save(null)
+//		usuarioRepo.findById(idP).get().setNombre(nameP);
+//		return usuarioRepo.save(null);
 //	}
 	
 	public recordsUsers updateUser(Long idP, recordsUsers body) {
