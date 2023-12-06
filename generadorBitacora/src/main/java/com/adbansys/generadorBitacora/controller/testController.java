@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,9 +18,7 @@ import com.adbansys.generadorBitacora.users.recordsUsers;
 import com.adbansys.generadorBitacora.users.serviceUsers;
 
 import java.util.ArrayList;
-// import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/testservice")
@@ -44,10 +42,10 @@ public class testController {
 		return usuarioServicio.inicio();
 	}
 	
-	@GetMapping("/uget/{idU}")
+	@GetMapping("/uget/{idGet}")
 	@ResponseBody
-	public Optional<recordsUsers> readUser(@PathVariable(name="idU") Long idU){
-		return this.usuarioServicio.readUser(idU);
+	public ResponseEntity<Object> readUser(@PathVariable(name="idGet") Long idGet){
+		return this.usuarioServicio.readUser(idGet);
 	}
 	
 	@PostMapping(
@@ -55,7 +53,7 @@ public class testController {
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public recordsUsers Usuario(@RequestBody recordsUsers body){
+	public ResponseEntity<Object> Usuario(@RequestBody recordsUsers body){
 		return usuarioServicio.postUser(body);
 	}
 	
@@ -64,19 +62,21 @@ public class testController {
 		return this.usuarioServicio.deleteUser(idDel);
 	}
 	
-//	@PatchMapping("/upatch/{idP}/{nameP}")
-//	public recordsUsers updatePartially(@PathVariable Long idP, @PathVariable String nameP) {
-//		return usuarioServicio.updateUser(idP, nameP);
-//	}
-	
 	@PutMapping(
 			path = "uput/{idP}",
 			consumes = MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
-	public recordsUsers updatePartially(@PathVariable(value="idP") Long idP, @RequestBody recordsUsers body) {
+	public ResponseEntity<Object> updatePartially(@PathVariable(value="idP") Long idP, @RequestBody recordsUsers body) {
 		return this.usuarioServicio.updateUser(idP, body);
 	}
+	
+	@PatchMapping("/upatch/{idP}/{nameP}")
+	public ResponseEntity<Object> updatePartially(@PathVariable Long idP, @PathVariable String nameP) {
+		return usuarioServicio.updatePartially(idP, nameP);
+	}
+	
+	
 	
 	// https://www.javatpoint.com/java-arraylist
 	// https://jarroba.com/arraylist-en-java-ejemplos/

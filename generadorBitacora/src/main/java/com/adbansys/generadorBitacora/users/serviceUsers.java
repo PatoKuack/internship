@@ -21,13 +21,42 @@ public class serviceUsers {
 		return this.usuarioRepo.findAll();
 	}
 	
-	public Optional<recordsUsers> readUser(Long idU){
-		return usuarioRepo.findById(idU);
+	public ResponseEntity<Object> readUser(Long idGet){
+		data = new HashMap<>();
+		boolean existence = this.usuarioRepo.existsById(idGet);
+		if(!existence) {
+			data.put("error", true);
+			data.put("message", "No existe un usuario con el Id: " + idGet);
+			return new ResponseEntity<>(
+					data,
+					HttpStatus.CONFLICT
+			);
+		}
+		data.put("data", usuarioRepo.findById(idGet));
+		return new ResponseEntity<>(
+				data,
+				HttpStatus.ACCEPTED
+		);
 	}
 	
-	public recordsUsers postUser(recordsUsers body){
-		body = usuarioRepo.save(body);
-		return body;
+	public ResponseEntity<Object> postUser(recordsUsers body){
+		data = new HashMap<>();
+		Optional<recordsUsers> mailFound = usuarioRepo.findUserByEmail(body.getEmail());
+		if(mailFound.isPresent()) {
+			data.put("error", true);
+			data.put("message", "Ya existe un usuario con el e-mail: " + body.getEmail());
+			return new ResponseEntity<>(
+					data,
+					HttpStatus.CONFLICT
+			);
+		}
+		usuarioRepo.save(body);
+		data.put("message", "Usuario añadido");
+		data.put("data", body);
+		return new ResponseEntity<> (
+			data,
+			HttpStatus.CREATED
+		);
 	}
 	
 	public ResponseEntity<Object> deleteUser(Long idDel){
@@ -35,30 +64,65 @@ public class serviceUsers {
 		boolean existence = this.usuarioRepo.existsById(idDel);
 		if(!existence) {
 			data.put("error", true);
-			data.put("message", "No existe un usuario con ese Id");
+			data.put("message", "No existe un usuario con el Id: " + idDel);
 			return new ResponseEntity<>(
 					data,
 					HttpStatus.CONFLICT
 			);
 		}
+		data.put("message", "Este usuario con el id " + idDel + " fue eliminado");
+		data.put("data", usuarioRepo.findById(idDel));
 		usuarioRepo.deleteById(idDel);
-		data.put("message", "El usuario con el id " + idDel + " fue eliminado");
 		return new ResponseEntity<>(
 				data,
 				HttpStatus.ACCEPTED
 		);
-		
 	}
 	
-//	public recordsUsers updateUser(Long idP, String nameP) {
-//		usuarioRepo.findById(idP).get().setNombre(nameP);
-//		return usuarioRepo.save(null);
-//	}
-	
-	public recordsUsers updateUser(Long idP, recordsUsers body) {
-		body = usuarioRepo.save(body);
-		return body;
+	public ResponseEntity<Object> updateUser(Long idP, recordsUsers body) {
+		data = new HashMap<>();
+		Optional<recordsUsers> idFound = usuarioRepo.findById(idP);
+		if(!idFound.isPresent()) {
+			data.put("error", true);
+			data.put("message", "No existe un usuario con el Id: " + idP);
+			return new ResponseEntity<>(
+					data,
+					HttpStatus.CONFLICT
+			);
+		}
+		usuarioRepo.save(body);
+		data.put("message", "Usuario actualizado");
+		data.put("data", body);
+		return new ResponseEntity<> (
+			data,
+			HttpStatus.CREATED
+		);
 	}
+	
+	public ResponseEntity<Object> updatePartially(Long idP, String nameP) {
+		data = new HashMap<>();
+		Optional<recordsUsers> idFound = usuarioRepo.findById(idP);
+		if(idFound.isPresent()) {
+			recordsUsers body = usuarioRepo.findById(idP).get();
+			body.setNombre(nameP);
+			usuarioRepo.save(body);
+			data.put("message", "Usuario actualizado");
+			data.put("data", body);
+			return new ResponseEntity<> (
+				data,
+				HttpStatus.CREATED
+			);
+		} else {
+			data.put("error", true);
+			data.put("message", "No existe un usuario con el Id: " + idP);
+			return new ResponseEntity<>(
+					data,
+					HttpStatus.CONFLICT
+			);
+		}
+	}
+	
+	
 	
 //	public void foundByEmail(recordsUsers RecordsUsers) {
 //		Optional<recordsUsers> res = usuarioRepo.findUserByEmail(RecordsUsers.getEmail());
