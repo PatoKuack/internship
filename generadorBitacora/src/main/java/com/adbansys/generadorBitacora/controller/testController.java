@@ -32,11 +32,6 @@ public class testController {
 	
 	List<recordsUsers> listaUsuarios = new ArrayList<recordsUsers>();
 	
-	@GetMapping("/hola")
-    public List<recordsUsers> hola() {
-        return this.usuarioServicio.inicio();
-    }
-	
 	@GetMapping("/")
 	public List<recordsUsers> inicio(){
 		return usuarioServicio.inicio();
@@ -98,3 +93,8 @@ public class testController {
 
 // github
 // https://www.youtube.com/watch?v=wYzkZn0qYv8
+
+// ejecutable .jar
+// https://www.youtube.com/watch?v=qDTUYkaXAEc
+// cd C:\Users\noctu\git\repository\generadorBitacora\target
+// java -jar generadorBitacora-0.0.1-SNAPSHOT.jar
