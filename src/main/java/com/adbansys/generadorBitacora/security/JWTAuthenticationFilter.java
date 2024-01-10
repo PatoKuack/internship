@@ -22,7 +22,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		try {
 			authCredentials = new ObjectMapper().readvalue(request.getReader(), AuthCredentials.class)
 		} catch(IOException e) {}
-		
+	
 		UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
 				AuthCredentials.getEmail(),
 				AuthCredentials.getPasword(),
