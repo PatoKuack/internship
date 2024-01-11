@@ -13,3 +13,5 @@ public class GeneradorBitacoraApplication {
 }
 
 /* https://start.spring.io/ */
+// Problemas con autenticación:
+/* https://www.youtube.com/watch?v=gO20QGT6aW8 */

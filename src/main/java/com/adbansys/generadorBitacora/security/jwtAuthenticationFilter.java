@@ -11,7 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import io.jsonwebtoken.lang.Collections;
 
-public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class jwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, 
@@ -20,7 +20,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		authCredentials AuthCredentials  = new authCredentials();
 		
 		try {
-			authCredentials = new ObjectMapper().readvalue(request.getReader(), AuthCredentials.class)
+			authCredentials = new ObjectMapper().readvalue(request.getReader(), AuthCredentials.class);
 		} catch(IOException e) {}
 	
 		UsernamePasswordAuthenticationToken usernamePAT = new UsernamePasswordAuthenticationToken(
