@@ -13,11 +13,11 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
-public class jwtUtils {
+public class jwtUtil {
 	
 	private String secret = "adbasys";
 			
-	private String extractUsername(String token) {
+	public String extractUsername(String token) {
 		return extractClaims(token, Claims::getSubject);
 	}
 	
