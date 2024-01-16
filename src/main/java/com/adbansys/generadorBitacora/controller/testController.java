@@ -18,6 +18,7 @@ import com.adbansys.generadorBitacora.users.recordsUsers;
 import com.adbansys.generadorBitacora.users.serviceUsers;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/testservice")
@@ -40,10 +41,18 @@ public class testController {
 		return this.usuarioServicio.readUser(idGet);
 	}
 	
-	@GetMapping("/ulogin/{emailU}/{passwordU}")
-	@ResponseBody
-	public ResponseEntity<Object> userValidation(@PathVariable(name="emailU") String emailU, @PathVariable(name="passwordU") String passwordU){
-		return this.usuarioServicio.userValidation(emailU, passwordU);
+//	@GetMapping("/login/{email}/{password}")
+//	@ResponseBody
+//	public ResponseEntity<Object> login(@PathVariable String email, @PathVariable String password){
+//		return this.usuarioServicio.login(email, password);
+//	}
+	@PostMapping(
+			path = "login",
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE
+			)
+	public ResponseEntity<Object> Usuario(@RequestBody(required = true) Map<String, String> requestMap){
+		return usuarioServicio.login(requestMap);
 	}
 	
 	@PostMapping(
@@ -95,8 +104,13 @@ public class testController {
 // https://www.youtube.com/watch?v=6tWtNYsqXL4
 // https://www.youtube.com/watch?v=M7lhQMzzHWU
 
+// autenticación y tokens
+// https://www.youtube.com/watch?v=ZzpDyIJizjo
+
 // github
 // https://www.youtube.com/watch?v=wYzkZn0qYv8
+// Problemas con autenticación de GitHub:
+// https://www.youtube.com/watch?v=gO20QGT6aW8
 
 // ejecutable .jar
 // https://www.youtube.com/watch?v=qDTUYkaXAEc

@@ -1,4 +1,4 @@
-package jwt;
+package com.adbansys.generadorBitacora.jwt;
 
 import java.sql.Date;
 import java.util.HashMap;

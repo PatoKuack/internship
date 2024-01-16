@@ -23,11 +23,13 @@ public class recordsUsers {
 	private String email;
 	
 	@Column
-	private String level;
+	private String rol;
 	
 	@Column
 	private String password;
-	
+
+	@Column
+	private boolean authorization;
 	
 	public recordsUsers() {
     }
@@ -57,12 +59,12 @@ public class recordsUsers {
 		this.email = email;
 	}
 
-	public String getLevel() {
-		return level;
+	public String getRol() {
+		return rol;
 	}
 
-	public void setLevel(String level) {
-		this.level = level;
+	public void setRol(String rol) {
+		this.rol = rol;
 	}
 	
 	public String getPassword() {
@@ -73,15 +75,24 @@ public class recordsUsers {
 		this.password = password;
 	}
 	
-	public String getData() {
-		return "Id: "+id+"; Nombre: "+name+"; E-mail: "+email+"; Nivel: "+level;
+	public boolean getAuthorization() {
+		return authorization;
+	}
+
+	public void setAuthorization(boolean authorization) {
+		this.authorization = authorization;
 	}
 	
-	public recordsUsers(Long id, String name, String email, String level, String password) {
+	public String getData() {
+		return "Id: "+id+"; Nombre: "+name+"; E-mail: "+email+"; Rol: "+rol+"; Autorizado: "+authorization;
+	}
+	
+	public recordsUsers(Long id, String name, String email, String rol, String password, boolean authorization) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
-		this.level= level;
+		this.rol= rol;
 		this.password = password;
+		this.authorization = authorization;
 	}
 }

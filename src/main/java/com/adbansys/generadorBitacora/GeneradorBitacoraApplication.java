@@ -3,7 +3,8 @@ package com.adbansys.generadorBitacora;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication /*Control + space*/
+// @SpringBootApplication /*Control + space*/
+@SpringBootApplication(scanBasePackages = {"com.adbasys.generadorBitacora.controller","com.adbasys.generadorBitacora.jwt","com.adbasys.generadorBitacora.users", "com.adbasys.generadorBitacora.xlsx"})
 public class GeneradorBitacoraApplication {
 
 	public static void main(String[] args) {
@@ -13,5 +14,3 @@ public class GeneradorBitacoraApplication {
 }
 
 /* https://start.spring.io/ */
-// Problemas con autenticación:
-/* https://www.youtube.com/watch?v=gO20QGT6aW8 */

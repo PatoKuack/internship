@@ -1,4 +1,4 @@
-package jwt;
+package com.adbansys.generadorBitacora.jwt;
 
 import java.util.ArrayList;
 import java.util.Objects;
