@@ -36,7 +36,7 @@ public class securityConfig {
 							.and()
 							.csrf().disable() // spring tiene sus propios mecanismos antihackers, así que no es útil este mecanismo y se deshabilita
 							.authorizeHttpRequests()
-							.antMatchers("/testservice/upost", "/testservice/login") // /testservice/* -> acepta todas las rutas del dominio
+							.antMatchers("/testservice/upost", "/testservice/login", "testservice/", "/bitacora/") // /testservice/* -> acepta todas las rutas del dominio
 							.permitAll() // se permitiran solo las rutas colocadas en antMatchers
 //							.anyRequest() // para cualquier otra ruta se deben autenticar
 //							.authenticated()
