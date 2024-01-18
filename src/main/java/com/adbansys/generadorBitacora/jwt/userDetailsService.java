@@ -16,8 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import com.adbansys.generadorBitacora.users.recordsUsers;
 import com.adbansys.generadorBitacora.users.repositoryUsers;
 
-import jdk.internal.org.jline.utils.Log;
-
 @Slf4j
 @Service
 public class userDetailsService implements UserDetailsService {
@@ -29,7 +27,7 @@ public class userDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Log.info("Dentro de loadUserByUsername {}", username);
+		System.out.println("Dentro de loadUserByUsername" + username);
 		RecordsUsers = RepositoryUsers.findUserByEmail(username);
 		
 		if(!Objects.isNull(RecordsUsers)) {

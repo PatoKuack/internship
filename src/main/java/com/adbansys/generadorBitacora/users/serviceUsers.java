@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import com.adbansys.generadorBitacora.jwt.jwtUtil;
 import com.adbansys.generadorBitacora.jwt.userDetailsService;
 
-import jdk.internal.org.jline.utils.Log;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

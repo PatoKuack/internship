@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
@@ -24,9 +26,25 @@ public class securityConfig {
 	@Autowired
 	private jwtFilter JwtFilter;
 	
+	// encriptar contraseña con BCrypt
 	@Bean
-	public PasswordEncoder passwordEncoder() {
-		return NoOpPasswordEncoder.getInstance();
+	public BCryptPasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+	}
+	
+	// obtener datos del usuario
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
+		auth.setUserDetailsService(UserDetailsService);
+		auth.setPasswordEncoder(passwordEncoder());
+		return auth;
+	}
+
+	// validar datos de usuario obtenidos en authenticationProvider()
+	@Bean
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.authenticationProvider(authenticationProvider());
 	}
 	
 	// permitir que otros dominios obtengan datos de este proyecto
@@ -36,7 +54,7 @@ public class securityConfig {
 							.and()
 							.csrf().disable() // spring tiene sus propios mecanismos antihackers, así que no es útil este mecanismo y se deshabilita
 							.authorizeHttpRequests()
-							.antMatchers("/testservice/upost", "/testservice/login", "testservice/", "/bitacora/") // /testservice/* -> acepta todas las rutas del dominio
+							.antMatchers("/testservice/upost", "testservice/upost", "/upost", "localhost:8080/testservice/upost", "/testservice/*", "/*") // /testservice/* -> acepta todas las rutas del dominio
 							.permitAll() // se permitiran solo las rutas colocadas en antMatchers
 //							.anyRequest() // para cualquier otra ruta se deben autenticar
 //							.authenticated()
